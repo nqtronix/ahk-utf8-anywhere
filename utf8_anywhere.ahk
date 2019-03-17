@@ -133,7 +133,17 @@ loop, parse, str_header, CSV		; StringSplit does not support delimiter 'CSV'
 		}
 		
 		str_hotstring := RegExReplace(str_field[num_idx], "[\r\n]")
-		if (str_hotstring != "" and str_field[1] != "")	; ignore incomplete lines
+		
+		; hotstrings longer than 40 chars are not supported
+		str_len := StrLen(str_hotstring)
+		if (str_len > 40)
+		{
+			str_hotstring := SubStr(str_hotstring, str_len-39)
+			msgBox, %A_Index% %str_len% %str_hotstring%
+		}
+		
+		; ignore incomplete lines
+		if (str_hotstring != "" and str_field[1] != "")
 		{
 			Hotstring("::" . str_hotstring, str_field[1], "On")
 			; PRINT ALL ASIGNMENTS
