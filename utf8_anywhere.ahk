@@ -139,15 +139,12 @@ loop, parse, str_header, CSV		; StringSplit does not support delimiter 'CSV'
 		if (str_len > 40)
 		{
 			str_hotstring := SubStr(str_hotstring, str_len-39)
-			msgBox, %A_Index% %str_len% %str_hotstring%
 		}
 		
 		; ignore incomplete lines
 		if (str_hotstring != "" and str_field[1] != "")
 		{
 			Hotstring("::" . str_hotstring, str_field[1], "On")
-			; PRINT ALL ASIGNMENTS
-			; MsgBox % str_hotstring . "=>" . str_field[1]
 		}
 	} until file_lut_rev.AtEOF
 }
