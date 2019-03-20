@@ -53,10 +53,57 @@ Q: Why does editing the csv lookup-table break certain characters?
 A: Most table editors, including Microsoft Excel and OpenOffice Calc, do not handle csv files well. Those programs convert the csv data first into their internal format and later back into a csv file, leading to information loss. For the creation of this script "Rons CSV Editor" was used.
 
 Q: The script replaced only part of a hotstring with a character I did not want! Ho do I get the correct character?
-A: This script chooses the first suitable hotstring and replaces it with the respective character. For example the csv list may contain "green", "yellowgreen" and "yellow" in this order. If you type "yellowgreen" and confirm it with '#', "green" will match, because it was the first suitable match in that list. The csv list is checked column-by column form left to right, so you can decrease the priority of certain hotstrings by moving them right.
+A: This script chooses the first suitable hotstring and replaces it with the respective character. For example the csv list may contain ""yellow", "yellowgreen" and "green in this order. If you type "yellowgreen" and confirm it with '#', "green" will match, because it was the first suitable match in that list. The priority in the csv file is left to right, bottom to top.
 
 Q: Why are the hotstrings case sensitive? How can I change this behavior?
-A: Often it is helpful to differentiate between upper and lowercase characters, espcially if some hotstrings are designed to match the latex expression. To change this behavior remove the 'C' from the command "#Hotstring ? O C" at the top of the script.
+A: Often it is helpful to differentiate between upper and lowercase characters, especially if some hotstrings are designed to match the latex expression. To change this behavior remove the 'C' from the command "#Hotstring ? O C" at the top of the script.
+)
+
+const_block_example = 
+(
+EXAMPLES
+
+Below you find a list of a few notable examples. For a full list of included characters please open the included look-up table `lut.csv `, which ypu can open with `#config#`.
+
+- Greek Letters
+  α, β, γ, ω, π (alpha, beta, gamma, omega, pi)
+  Ω, Π (Omega, Pi)
+  
+- Superscript, Subscript, Fracctions
+  ⁰, ¹, ², ... ⁹, ⁺, ⁻, ⁼ (sup0, sup1, sup2, sup9, sup+, sup-, sup=)
+  ₀, ₁, ₂, ... ₉, ₊, ₋, ₌ (sub0, sub1, sub2, sub9, sub+, sub-, sub=)
+  ½, ⅔, ¾, ⅚, ⅞ (1/2, 2/3, 3/4, 5/6, 7/8)
+  ¹²³⁄₃₂₁ (sup1 sup2 sup3 frac sub3 sub2 sub1)
+  
+- Symbols
+  ✓, ✔, ✗, ✘ (marky, Markn, markn, Markn)
+  ☐, ☑, ☒ (box, boxy, boxn)
+  
+- Arrows (combinations limited by utf8)
+  ←, →, ↔ (<-, ->, <->)
+  ←, ↖, ↑, →, ↘, ↓ ↙ (->l, ->ul, ->u, ->ur, ->r, ->dr, ->d, ->dl)
+  ↠, ↣, ↦, ⇥, ↝, ⇝, ⇒, ⤇ (->>, >->, |->, ->|, ~>, ~~>, =>, |=>)
+  ⟶, ⟼, ⟹, ⟾, ⟿ (-->, |-->, ==>, |==>, ~~~>)
+  
+- Math
+  f′, f″, f‴, f⁗ (', '', ''', '''')
+  ¬, ∧, ∨, ⊼, ⊽, ⊻ (neg, and, or, nand, nor, xor)
+  ⌀, ∠, ∡, ∢ (dia, ang, angm, angs)
+  ∔, ∸, ±, ∓, ⋅, ∗, ⋆, ×, ∕, ÷, ⋇, o (+., -, +-, -+, *, **, ***, x, //, /:, /:x, o)
+  √, ∛, ∜ (sqrt, sqrt3, sqrt4)
+  ∫, ∬, ∭, ∮, ∯, ∰ (int, int2, int3, into, into2, into3)
+  ℜ, ℑ, ℕ, ℤ, ℚ, ℝ, ℂ (Re, Im, NN, ZZ, QQ, RR, CC)
+  ∑, ∏, ∐ (sum, prod, coprod)
+  ≐, ≟, ≗, ≙, ≚, ≛, ≞, ≝ (=*, =?, =°, =^^, =v, =***, =m, =def)
+  ≠, ≡, ≢, ≣ (!=, =_, !=_, =__)
+  ≈, ≉, ≋, ≂, ≃, ≄, ≅, ≆, ≇, ≊ (~~, !~~, ~~~, _~, ~_, !~_, ~__, ~!__, !~__, ~~_)
+  ⋖, ≮, ≪, ⋘, ≤, ≰, ≲, ⋦, ≴, ≦, ≨, ⪅, ⪉ (<., !<, <<, <<<, <_, !<_, <~, <!~, !<~, <__, <!__, <~~, <!~~)
+  
+- Combining (overlays the character before, might not always render correctly)
+  ṙ, r̈, r̃, r̄, ŕ, r̀, r̆, ȓ, r̂, ř, r̊, r⃗ (r&a., r&a.., r&a~, r&a-, r&a´´, r&a\`\`, r&au, r&an, r&a^^, a&av, r&a°, r&a->)
+  ṛ, r̤, r̰, ṟ, r̗, r̖, r̮, r̯, r̭, r̬, r̥, r⃯ (r&b., r&b.., r&b~, r&b-, r&b´´, r&b\`\`, r&bu, r&bn, r&b^^, b&bv, r&b°, r&b->)
+  r̴, r̵, r̶, r⃒, r⃦, r̸, r⃫ (r&o~, r&o-, r&o_, r&o|, r&o||, r&o/, r&o//)
+  r⃝, r⃞, r⃟, r⃠, r⃢, r⃣ (r&ec, r&es, r&ed, r&eb, r&ey, r&ek) [Note: shown incorrectly on github]
 )
 
 ; formatting optimise to be view with the #license hotley
@@ -158,6 +205,10 @@ FileDelete, %filepath_lut_rev%	;cleanup
 
 :c0:#help::
 	MsgBox %const_block_help%
+return
+
+:c0:#example::
+	MsgBox %const_block_example%
 return
 
 :c0:#faq::
